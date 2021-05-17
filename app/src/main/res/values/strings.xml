@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">GPSService09–962</string>
+    <string name="app_name">GpsService</string>
     <string name="start_stop_location_listening">Начать или завершить получение координат устройства</string>
     <string name="position">Широта: %f; Долгота: %f</string>
+    <string name="lenght">Длина: %f</string>
+
 </resources>

@@ -8,6 +8,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
@@ -16,6 +18,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class MainActivity : AppCompatActivity() {
     private lateinit var startStopBtn: FloatingActionButton
     private lateinit var output: LinearLayout
+
+    val listOfCoord = mutableMapOf("Кул-Шариф" to "55.798374 49.105159", "Двойка" to "55.792378 49.122228", "Деревня универсиады" to "55.7441869 49.1837646")
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +30,6 @@ class MainActivity : AppCompatActivity() {
                 if (
                         context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED
-                        &&
-                        context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED
-
                 ) {
                     requestLocationPermission()
                 } else {
@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 0
                 && permissions.first() == Manifest.permission.ACCESS_FINE_LOCATION
-                && permissions.first() == Manifest.permission.ACCESS_COARSE_LOCATION
                 && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
             changeServiceState(true)
         }
@@ -73,11 +72,44 @@ class MainActivity : AppCompatActivity() {
 
     private val locationObserver: (Location) -> Unit = ::locationChanged
 
-    private fun locationChanged(l: Location){
-        val tv = TextView(this@MainActivity)
-        tv.textSize = 18F
-        tv.text = getString(R.string.position, l.latitude, l.longitude)
-        output.addView(tv)
+    private fun locationChanged(l: Location) {
+
+        val tempLat = l.latitude
+        val tempLong = l.longitude
+
+        val radioGroup = findViewById<RadioGroup>(R.id.rbGroup)
+        val index = radioGroup.checkedRadioButtonId
+        var len = 0.0
+        if (index != -1)
+            for ((key, value) in listOfCoord) {
+                if (radioGroup.findViewById<RadioButton>(index).text == key) {
+                    len = CalcLenght().calc(
+                        value.split(' ')[0].toDouble(),
+                        value.split(' ')[1].toDouble(),
+                        tempLat,
+                        tempLong
+                    )
+                }
+                val tv = TextView(this@MainActivity)
+                tv.textSize = 18F
+                tv.text = getString(R.string.position, l.latitude, l.longitude)
+
+                val tv1 = TextView(this@MainActivity)
+                tv1.textSize = 18F
+                tv1.text = getString(R.string.lenght, len)
+                output.addView(tv)
+                output.addView(tv1)
+            }
+        else
+        {
+            val tv = TextView(this@MainActivity)
+            tv.textSize = 18F
+            tv.text = getString(R.string.lenght, -0.0000005)
+            output.addView(tv)
+
+        }
+
+
     }
 
     private fun changeServiceState(forceStart: Boolean = false) {

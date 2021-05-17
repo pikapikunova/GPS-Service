@@ -28,7 +28,7 @@ class GPSHelper: LocationListener{
                     return
                 }
                 this.locationUpdater = locationUpdater
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 30F, this)
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60L, 15F, this)
             }
 
         }
