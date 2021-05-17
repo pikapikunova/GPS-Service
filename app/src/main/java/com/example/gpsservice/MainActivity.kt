@@ -1,8 +1,6 @@
 package com.example.gpsservice
 
 import android.Manifest
-import android.app.ActivityManager
-import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -12,10 +10,8 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.example.gpsservice.LocationData.location
 
 class MainActivity : AppCompatActivity() {
     private lateinit var startStopBtn: FloatingActionButton

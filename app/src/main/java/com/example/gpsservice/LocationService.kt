@@ -58,7 +58,7 @@ class LocationService : LifecycleService() {
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId )
         val notification = notificationBuilder.setOngoing(true)
-            .setSmallIcon(R.mipmap.sym_def_app_icon)
+            //.setSmallIcon(R.mipmap.sym_def_app_icon)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .build()
