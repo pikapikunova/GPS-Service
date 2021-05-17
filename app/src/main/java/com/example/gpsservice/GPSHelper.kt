@@ -9,34 +9,45 @@ import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 
 class GPSHelper: LocationListener{
-    companion object
-    {
-        var imHere: Location? = null
 
-        fun startLocationListening(context: Context)
+    private var locationManager: LocationManager? = null
+    private var locationUpdater: ((Location)->Unit)? = null
+
+    companion object {
+        private var instance: GPSHelper? = null
+        fun getInstance() = instance ?: GPSHelper().also { instance = it}
+    }
+
+        fun startLocationListening(context: Context, locationUpdater: ((Location)->Unit))
         {
-            val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return
+            locationManager = (context.getSystemService(Context.LOCATION_SERVICE) as LocationManager)
+            .also {locationManager ->
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED
+                ) {
+                    return
+                }
+                this.locationUpdater = locationUpdater
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 30F, this)
             }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500L, 10F, GPSHelper())
 
-            imHere = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         }
-
+    fun stopLocating(){
+        locationManager?.removeUpdates(this)
     }
 
     override fun onLocationChanged(location: Location) {
-        imHere = location
+        locationUpdater?.invoke(location)
+    }
+
+    override fun onProviderDisabled(provider: String){
+
+    }
+
+    override fun onProviderEnabled(provider: String){
+
     }
 
 }
