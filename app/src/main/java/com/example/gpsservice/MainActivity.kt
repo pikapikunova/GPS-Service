@@ -1,16 +1,15 @@
 package com.example.gpsservice
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,7 +18,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var startStopBtn: FloatingActionButton
     private lateinit var output: LinearLayout
 
-    val listOfCoord = mutableMapOf("Кул-Шариф" to "55.798374 49.105159", "Двойка" to "55.792378 49.122228", "Деревня универсиады" to "55.7441869 49.1837646")
+    val listOfCoord = mutableMapOf("Кул-Шариф" to "55.798374 49.105159", "Двойка" to "55.792378 49.122228", "Деревня универсиады" to "55.7441869 49.1837646", "55.744453 49.187614" to "55.744453 49.187614")
+    val APP_PREFERENCES_EDIT = "text"
+    lateinit var prefs: SharedPreferences
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         output = findViewById(R.id.coordList)
+        prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -79,6 +81,8 @@ class MainActivity : AppCompatActivity() {
 
         val radioGroup = findViewById<RadioGroup>(R.id.rbGroup)
         val index = radioGroup.checkedRadioButtonId
+        val text = findViewById<TextView>(R.id.textView2)
+
         var len = 0.0
         if (index != -1)
             for ((key, value) in listOfCoord) {
@@ -89,16 +93,20 @@ class MainActivity : AppCompatActivity() {
                         tempLat,
                         tempLong
                     )
-                }
-                val tv = TextView(this@MainActivity)
-                tv.textSize = 18F
-                tv.text = getString(R.string.position, l.latitude, l.longitude)
 
-                val tv1 = TextView(this@MainActivity)
-                tv1.textSize = 18F
-                tv1.text = getString(R.string.lenght, len)
-                output.addView(tv)
-                output.addView(tv1)
+                    val tv = TextView(this@MainActivity)
+                    tv.textSize = 18F
+                    tv.text = getString(R.string.position, l.latitude, l.longitude)
+
+                    val tv1 = TextView(this@MainActivity)
+                    tv1.textSize = 18F
+                    tv1.text = getString(R.string.lenght, len)
+                    output.addView(tv)
+                    output.addView(tv1)
+
+                    text.text = len.toString()
+
+                }
             }
         else
         {
@@ -112,7 +120,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun changeServiceState(forceStart: Boolean = false) {
+    override fun onPause() {
+        super.onPause()
+        val text = findViewById<TextView>(R.id.textView2)
+        val editor = prefs.edit()
+        editor.putString(APP_PREFERENCES_EDIT, text.text.toString()).apply()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val text = findViewById<TextView>(R.id.textView2)
+        if (this.prefs.contains(APP_PREFERENCES_EDIT)) {
+            text.setText(this.prefs.getString(APP_PREFERENCES_EDIT, "0"))
+
+        }
+    }
+        private fun changeServiceState(forceStart: Boolean = false) {
         if (!LocationService.running || forceStart) {
             sendCommand(Constants.START_LOCATION_SERVICE)
             LocationData.location.observe(this, Observer(locationObserver))
