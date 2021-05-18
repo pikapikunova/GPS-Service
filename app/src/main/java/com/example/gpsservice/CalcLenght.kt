@@ -20,7 +20,7 @@ class CalcLenght {
         val y = sqrt(Math.pow(cosLat2*sinDelta, 2.0) + Math.pow(cosLat1*sinLong2 - sinLong1*cosLat2*cosDelta, 2.0))
         val x = sinLong1*sinLong2+cosLat1*cosLat2*cosDelta
 
-        if(Math.atan2(y, x) * 6372795<10)
+        if(Math.atan2(y, x) * 6372795<15)
             return 0.000
         else
             return Math.atan2(y, x) * 6372795

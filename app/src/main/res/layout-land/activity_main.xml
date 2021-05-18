@@ -7,15 +7,27 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="8dp"
-        android:layout_height="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        android:id="@+id/textView4"
+        android:layout_width="440dp"
+        android:layout_height="33dp"
+        android:text="Выберите место до которого хотели бы добраться"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/rbGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.476" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="247dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/rbGroup"
-        app:layout_constraintVertical_bias="0.446" />
+        app:layout_constraintVertical_bias="0.181" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -33,11 +45,12 @@
         android:id="@+id/rbGroup"
         android:layout_width="242dp"
         android:layout_height="123dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.202">
+        app:layout_constraintVertical_bias="0.369">
 
         <RadioButton
             android:id="@+id/radioButton"
@@ -57,43 +70,21 @@
             android:layout_height="30dp"
             android:text="Деревня универсиады" />
 
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="55.744453 49.187614" />
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="147dp"
-        android:layout_height="41dp"
+        android:layout_width="232dp"
+        android:layout_height="47dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:text="До места назначения вам осталось"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rbGroup"
-        app:layout_constraintVertical_bias="0.411" />
+        app:layout_constraintVertical_bias="0.128" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="521dp"
-        android:layout_height="91dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7">
-
-        <LinearLayout
-            android:id="@+id/coordList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="vertical" />
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

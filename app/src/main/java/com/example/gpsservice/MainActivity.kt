@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var startStopBtn: FloatingActionButton
     private lateinit var output: LinearLayout
 
-    val listOfCoord = mutableMapOf("Кул-Шариф" to "55.798374 49.105159", "Двойка" to "55.792378 49.122228", "Деревня универсиады" to "55.7441869 49.1837646", "55.744453 49.187614" to "55.744453 49.187614")
+    val listOfCoord = mutableMapOf("Кул-Шариф" to "55.798374 49.105159", "Двойка" to "55.792378 49.122228", "Деревня универсиады" to "55.7441869 49.1837646")
     val APP_PREFERENCES_EDIT = "text"
     val APP_PREFERENCES_Radio = "radioGroup"
     lateinit var prefs: SharedPreferences
@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        output = findViewById(R.id.coordList)
         prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
     }
 
@@ -98,12 +97,6 @@ class MainActivity : AppCompatActivity() {
                     val tv = TextView(this@MainActivity)
                     tv.textSize = 18F
                     tv.text = getString(R.string.position, l.latitude, l.longitude)
-
-                    val tv1 = TextView(this@MainActivity)
-                    tv1.textSize = 18F
-                    tv1.text = getString(R.string.lenght, len)
-                    output.addView(tv)
-                    output.addView(tv1)
 
                     text.text = len.toString()
 
