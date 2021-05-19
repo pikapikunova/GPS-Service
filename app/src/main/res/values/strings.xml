@@ -2,6 +2,11 @@
     <string name="app_name">GpsService</string>
     <string name="start_stop_location_listening">Начать или завершить получение координат устройства</string>
     <string name="position">Широта: %f; Долгота: %f</string>
-    <string name="lenght">Длина: %f</string>
+    <string name="lenght">%f м</string>
+    <string name="textView4">Выберите место до которого хотели бы добраться</string>
+    <string name="rb1">Кул-Шариф</string>
+    <string name="rb2">Двойка</string>
+    <string name="rb3">Деревня универсиады</string>
+    <string name="textView">До места назначения вам осталось</string>
 
 </resources>

@@ -10,7 +10,7 @@
         android:id="@+id/textView4"
         android:layout_width="440dp"
         android:layout_height="33dp"
-        android:text="Выберите место до которого хотели бы добраться"
+        android:text="@string/textView4"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/rbGroup"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,19 +56,19 @@
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Кул-Шариф" />
+            android:text="@string/rb1" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Двойка" />
+            android:text="@string/rb2" />
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Деревня универсиады" />
+            android:text="@string/rb3" />
 
     </RadioGroup>
 
@@ -78,7 +78,7 @@
         android:layout_height="47dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:text="До места назначения вам осталось"
+        android:text="@string/textView"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"

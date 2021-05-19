@@ -16,7 +16,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var startStopBtn: FloatingActionButton
-    private lateinit var output: LinearLayout
 
     val listOfCoord = mutableMapOf("Кул-Шариф" to "55.798374 49.105159", "Двойка" to "55.792378 49.122228", "Деревня универсиады" to "55.7441869 49.1837646")
     val APP_PREFERENCES_EDIT = "text"
@@ -93,25 +92,9 @@ class MainActivity : AppCompatActivity() {
                         tempLat,
                         tempLong
                     )
-
-                    val tv = TextView(this@MainActivity)
-                    tv.textSize = 18F
-                    tv.text = getString(R.string.position, l.latitude, l.longitude)
-
-                    text.text = len.toString()
-
+                    text.text = getString(R.string.lenght, len)
                 }
             }
-        else
-        {
-            val tv = TextView(this@MainActivity)
-            tv.textSize = 18F
-            tv.text = getString(R.string.lenght, -0.0000005)
-            output.addView(tv)
-
-        }
-
-
     }
 
     override fun onPause() {

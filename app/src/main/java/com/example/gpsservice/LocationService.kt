@@ -48,7 +48,6 @@ class LocationService : LifecycleService() {
     }
 
     fun startForeground(service: Intent?) {
-        //val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelId =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 createNotificationChannel()
@@ -58,7 +57,6 @@ class LocationService : LifecycleService() {
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId )
         val notification = notificationBuilder.setOngoing(true)
-            //.setSmallIcon(R.mipmap.sym_def_app_icon)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .build()
